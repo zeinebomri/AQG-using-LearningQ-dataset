@@ -3,7 +3,7 @@ Automatic question generation using Transfer Learning Techniques
 
 
 
-Three different approaches are suggested to address the Automatic Question Generation problem using the LearningQ dataset introduced by in this [paper](https://ojs.aaai.org/index.php/ICWSM/article/view/14987/14837).
+Three different approaches are suggested to address the Automatic Question Generation problem using the LearningQ dataset introduced by this [paper](https://ojs.aaai.org/index.php/ICWSM/article/view/14987/14837).
 Essentially, we fine-tune the pretrained transformer models, namely BART and T5, for the downstream task of question generation.
 
 ********
