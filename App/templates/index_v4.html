@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+
+      
+		body {
+			height: calc(100vh - 50px);
+			background-color: #9eb8d5;
+            background-image: url('https://media.istockphoto.com/id/1408364942/photo/white-question-mark-sign-on-punctuation-blue-background-with-abstract-symbol-concept-or-faq.jpg?b=1&s=170667a&w=0&k=20&c=pPkv8n4U0tXlmxpJyADZcc88C8ZmQUKUnNwOfY2dhHg=');
+			font-family: Arial, sans-serif;
+			background-size: cover;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: stretch;
+			justify-content: center;
+            flex-direction: row;
+		}
+		.container {
+             display: flex;
+             flex-wrap: wrap;
+             align-items: stretch;
+             justify-content: center;
+             width: 80%;
+            }
+		
+
+
+		h1 {
+			text-align: center;
+			margin-bottom: 10px;
+			color: #ffffff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            text-shadow: 2px 2px #20054d;
+
+		}
+
+		h2 {
+			text-align: center;
+			color: #20054d;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Pacifico', cursive;
+            font-size: 20px;
+		}
+		.logo-left {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 270px;
+            height: auto;
+            display: block;
+            margin: 10px;
+            filter: brightness(150%);
+            text-shadow: 1px 1px 2px #000000;
+        }
+		.logo-center {
+          display: block;
+          margin: 0 auto;
+          width: 250px;
+          height: auto;
+		  background-color: transparent;
+
+        }
+
+
+		label {
+			display: block;
+			font-weight: bold;
+			color: #20054d;
+			margin-bottom: 10px;
+			margin-top:10px;
+			flex: 1 0 100%;
+		}
+
+		textarea {
+			width: 80%;
+			max-width: calc(100% - 50px);
+			border: 2px solid #cccccc;
+			border-radius: 5px;
+			padding: 10px;
+			font-size: 12px;
+			height: 200px;
+			max-height: 80%;
+			height: 60px;
+		}
+
+		select {
+	        padding: 12px;
+	        font-size: 14px;
+	        border-radius: 5px;
+	        border: none;
+	        background-color: #f2f2f2;
+	        color: #333;
+	        max-width: 80%;
+	        box-sizing: border-box;
+	        margin-left: 10px;
+	        margin-right: 10px;
+	        height: 40px;
+	        appearance: none;
+	        text-align: center;
+
+           }
+
+        select:hover,
+        select:focus {
+	        background-color: #e6e6e6;
+        }
+
+        select option {
+	       background-color: #fff;
+	       color: #333;
+        }
+
+
+       .left {
+            margin-right: 50px;
+			width:400px;
+			margin-left: 0px;
+			height:400px;
+        }
+
+       .right {
+		    margin-left: 50px;
+			width:400px;
+			margin-right: 0px;
+			height:400px;
+        }
+
+		form {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 5px groove #6577f0; 
+            border-radius: 40px; 
+            box-shadow: 0px 0px 20px #6577f0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 400px;
+            margin-bottom: 10px;
+            }
+
+       form label {
+            font-size: 20; 
+            margin-bottom: 20px; 
+            }
+
+        form input[type="number"] {
+            font-size: 12px; 
+            padding: 10px; 
+            border-radius: 10px; 
+            border: none; 
+            margin-bottom: 20px; 
+            }
+
+        form input[type="submit"] {
+            font-size: 24px; 
+            padding: 10px 20px; 
+            border-radius: 10px; 
+            border: none; 
+            background-color: rgb(24, 150, 64); 
+            cursor: pointer; 
+        }
+
+		form input[type="submit"]:hover {
+			background-color: #1e4b1f;
+
+        }
+
+	   .error {
+        color: rgb(78, 22, 22);
+		text-align: center;
+       }
+       
+
+	   ul {
+        list-style-type: disc; 
+        margin: 0;
+        padding: 0;
+        }
+
+       li {
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 14px;
+        font-family: 'Arial', sans-serif;
+        border-bottom: 1px solid #ccc;
+        }
+
+	   
+	</style>
+
+</head>
+<body>
+		<img class="logo-left" src="https://www.unilion.eu/wp-content/uploads/2022/01/elte_angol_fekvo_kek_logo-1-300x129.png" alt="logo left">
+		<h1 class="h1">Automatic Educational<br>Question Generation</h1>
+
+	<div class="container">
+		<div class="left">
+			<form action="{{ url_for('generate_question') }}" method="post">
+				<label for="context">Please enter your text in the box below</label>
+				<textarea id="context" name="context" rows="4" cols="40">{{ context }}</textarea>
+				<label for="model">Select a model</label>
+
+                <select id="model" name="model">
+					<option value="BART" {% if model == "BART" %}selected{% endif %}>BART</option>
+					<option value="T5" {% if model == "T5" %}selected{% endif %}>T5</option>
+					<option value="BART with keywords" {% if model == "BART with keywords" %}selected{% endif %}>BART (keywords integrated)</option>
+					<option value="T5 with keywords" {% if model == "T5 with keywords" %}selected{% endif %}>T5 (keywords integrated)</option>
+					<option value="Combined model" {% if model == "Combined model" %}selected{% endif %}>Combined model</option>
+				</select>
+				<label for="n">Number of questions (1-5)</label>
+				<input type="number" id="n" name="n" min="1" max="5" value="{{ n }}" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; margin-right: 10px;">
+				<input type="submit" value="Generate question" style="padding: 8px 20px; font-size: 20px; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+				
+			</form>
+		</div>
+			<div class="right">
+				<form>
+
+				<label>Generated questions</label>
+				{% if question == "Please make sure to enter your text in the box!" or question == "The text provided couldnt be handled by the model, please rephrase your text or select another model!" or question == "Please make sure to enter the number of questions!" %}
+					<label class="error" for="question">{{ question }}</label>
+				{% else %}
+					<ul>
+						{% for q in question %}
+							<li>{{ q }}</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+				<img class="logo-center" src='https://miro.medium.com/v2/resize:fit:1100/format:webp/1*qUFgGhSERoWAa08MV6AVCQ.jpeg'  alt="logo right" height="auto">  <!-- image source: https://towardsdatascience.com/automatic-question-answering-ac7593432842 -->
+
+			</form>
+			</div>
+	</div>
+</body>
